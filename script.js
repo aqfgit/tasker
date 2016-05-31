@@ -2,6 +2,13 @@ var body = document.getElementsByTagName('body')[0];
 var taskName = document.querySelector("#taskName");
 var button = document.querySelector("#button");
 var table = document.querySelector('table');
+var timer = document.querySelector("#time")
+
+var timerInterval = window.setInterval(addSecond,1000);
+
+var seconds = 57;
+var minutes = 59;
+var hours = 0;
 
 function fillTableData(tableDatas, bt){
 	tableDatas[0].innerText = taskName.value;
@@ -34,7 +41,26 @@ var generateRow = function(){
 	fillTableData(tableDatas,bt);
 }
 
+function addSecond(){
+	
 
+	
+	 if(seconds >= 59){
+		seconds = -1;
+		minutes++;
+		
+	}
+	
+	else if(minutes > 59){
+		minutes = 0;
+		hours++;
+	}
+	
+	timer.innerHTML = "";
+	seconds++;
+	
+	timer.innerHTML += hours + ":" + minutes + ":" + seconds;
+}
 
 
 function buttonClicked(){
