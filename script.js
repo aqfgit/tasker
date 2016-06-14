@@ -6,9 +6,13 @@ var timer = document.querySelector("#time")
 
 var timerInterval = window.setInterval(addSecond,1000);
 
+var str_seconds = 57;
+var str_minutes = 59;
+var str_hours = 59;
+
 var seconds = 57;
 var minutes = 59;
-var hours = 0;
+var hours = 59;
 
 function fillTableData(tableDatas, bt){
 	tableDatas[0].innerText = taskName.value;
@@ -41,26 +45,44 @@ var generateRow = function(){
 	fillTableData(tableDatas,bt);
 }
 
-function addSecond(){
-	
+function addZeroBefore(){
+		if(seconds < 10){
+			str_seconds = "0" + seconds;
+		} else{
+			str_seconds = seconds;
+		}
+		if(minutes < 10){
+			str_minutes = "0" + minutes;
+		} else{
+			str_minutes= minutes;
+		}
+		if(hours < 10){
+			str_hours = "0" + hours;
+		} else{
+			str_hours = hours;
+		}
+}
 
-	
+function addSecond(){
+	 addZeroBefore();
 	 if(seconds >= 59){
 		seconds = -1;
 		minutes++;
-		
+
 	}
-	
-	else if(minutes > 59){
+
+	if(minutes > 59){
 		minutes = 0;
 		hours++;
 	}
-	
+
+
 	timer.innerHTML = "";
 	seconds++;
-	
-	timer.innerHTML += hours + ":" + minutes + ":" + seconds;
+
+	timer.innerHTML += str_hours + ":" +str_minutes + ":" + str_seconds;
 }
+
 
 
 function buttonClicked(){
