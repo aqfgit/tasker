@@ -1,24 +1,25 @@
 var body = document.getElementsByTagName('body')[0];
 var taskName = document.querySelector("#taskName");
-var button = document.querySelector("#button");
+var addTask = document.querySelector("#addTask");
 var table = document.querySelector('table');
-var timer = document.querySelector("#time")
+//var timer = document.querySelector(".time")
 
-var timerInterval = window.setInterval(addSecond,1000);
+var stopped = false;
 
-var str_seconds = 57;
-var str_minutes = 59;
-var str_hours = 59;
+var str_seconds = 0;
+var str_minutes = 0;
+var str_hours = 0;
 
-var seconds = 57;
-var minutes = 59;
-var hours = 59;
+var seconds = 0;
+var minutes = 0;
+var hours = 0;
 
-function fillTableData(tableDatas, bt){
+function fillTableData(tableDatas,del_btn,stop_btn,time){
 	tableDatas[0].innerText = taskName.value;
-	tableDatas[1].innerText = 12;
-	tableDatas[2].innerText = "placeholder";
-	tableDatas[3].appendChild(bt);
+	tableDatas[1].innerText = "placeholder";
+	tableDatas[2].appendChild(stop_btn);
+	tableDatas[3].appendChild(del_btn);
+	tableDatas[4].appendChild(time)
 }
 
 var generateRow = function(){
@@ -27,22 +28,42 @@ var generateRow = function(){
 	table.appendChild(tableRowTd);
 	var tableDatas = []
 
-	for(var i = 0;i < 4;i++){
+	for(var i = 0;i < 5;i++){
 		tableDatas.push(document.createElement("td"));
 		tableRowTd.appendChild(tableDatas[i]);
 	}
 
-	var bt = document.createElement("button");
-	bt.type = "button";
-	bt.innerText= "Usuń";
-	bt.classList.add("delete-btn");
-	bt.addEventListener("click", deleteTask);
+	fillTableData(tableDatas,del_btn,stop_btn,time);
+}
 
-	function deleteTask(){
-		table.removeChild(tableRowTd);
+var del_btn = document.createElement("button");
+del_btn.type = "button";
+del_btn.innerText= "Usuń";
+del_btn.classList.add("btn");
+del_btn.addEventListener("click", deleteTask);
+
+var stop_btn = document.createElement("button");
+stop_btn.type = "button";
+stop_btn.innerText= "Stop";
+stop_btn.classList.add("btn");
+stop_btn.addEventListener("click", stopTimer);
+
+var time = document.createElement("p");
+time.classList.add("time");
+
+function deleteTask(){
+	table.removeChild(tableRowTd);
+}
+
+function stopTimer(){
+	stopped = !stopped;
+	if(stopped == true){
+			clearInterval(timerInterval);
+			stop_btn.innerText= "Start";
+	} else{
+		timerInterval = window.setInterval(addSecond,1000);
+		stop_btn.innerText= "Stop";
 	}
-
-	fillTableData(tableDatas,bt);
 }
 
 function addZeroBefore(){
@@ -77,18 +98,19 @@ function addSecond(){
 	}
 
 
-	timer.innerHTML = "";
+	time.innerHTML = "";
 	seconds++;
 
-	timer.innerHTML += str_hours + ":" +str_minutes + ":" + str_seconds;
+	time.innerHTML += str_hours + ":" +str_minutes + ":" + str_seconds;
 }
 
 
 
 function buttonClicked(){
+	timerInterval = window.setInterval(addSecond,1000);
 	generateRow();
 }
 
 
 
-button.addEventListener("click", buttonClicked);
+addTask.addEventListener("click", buttonClicked);
