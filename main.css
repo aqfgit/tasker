@@ -16,6 +16,8 @@ td {
 }
 
 .btn {
-  width: 50x;
-  height: 50px;
+
+  padding: auto;
+  margin: 0 auto;
+  width: auto;
 }
