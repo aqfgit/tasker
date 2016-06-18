@@ -10,20 +10,39 @@
 	<header>
 		<h1>Tasker</h1>
 	</header>
-	<form>
-		<input type="text" name="name" id="taskName" required>
-		<button name="sumbit" type="button" id="addTask">Add task</button>
-	</form>
-	<table class="tg">
+  <h2>To do</h2>
+  <button name="sumbit" type="button" id="clearToDoTable">Clear table</button>
+  <form>
+    <input type="text" name="name" id="taskName" required>
+    <button name="sumbit" type="button" id="addTask">Add task</button>
+  </form>
+  <table class="tg" id="toDo">
   <tr>
     <th class="tg-yw4l">Name</th>
-    <th class="tg-yw4l">State</th>
-    <th class="tg-yw4l">Start/stop</th>
+    <th class="tg-yw4l">Start</th>
     <th class="tg-yw4l">Delete</th>
+  </tr>
+  </table>
+  <h2>In progress</h2>
+  <button name="sumbit" type="button" id="clearInProgressTable">Clear table</button>
+	<table class="tg" id="inProgress">
+  <tr>
+    <th class="tg-yw4l">Name</th>
+    <th class="tg-yw4l">Start/stop</th>
+    <th class="tg-yw4l">End</th>
     <th class="tg-yw4l">Time</th>
+    <th class="tg-yw4l">Delete</th>
   </tr>
 </table>
-<p class="time"></p>
+<h2>Done tasks</h2>
+<button name="sumbit" type="button" id="clearDoneTable">Clear table</button>
+<table class="tg" id="done">
+<tr>
+  <th class="tg-yw4l">Name</th>
+  <th class="tg-yw4l">Time</th>
+  <th class="tg-yw4l">Delete</th>
+</tr>
+</table>
 <script src="script.js"></script>
 </body>
 </html>
