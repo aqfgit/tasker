@@ -1,23 +1,147 @@
+.table-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 table {
   border:1px solid #C0C0C0;
   border-collapse:collapse;
   padding:5px;
   margin-bottom: 100px;
+
 }
 
 th {
   border:1px solid #C0C0C0;
 	padding:5px;
-	background:#F0F0F0;
+	background:#F7BC5C;
 }
 
 td {
+  max-width: 220px;
   border:1px solid #C0C0C0;
 	padding:5px;
+  background: #fff;
+}
+html {
+  font-size: 62.5%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+.header {
+  font-size: 4rem;
+  font-weight: 800;
+  color: black;
+  background: #FCFFA1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100vh;
+}
+
+.header h1 {
+  max-width: 100vh;
+}
+
+.content {
+  background: whitesmoke;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 0 50px;
+  min-height: 100vh;
+}
+
+.schedule {
+  text-align: center;
+  margin:0 50px;
 }
 
 .btn {
-  padding: auto;
+  display: inline-block;
   margin: 0 auto;
+  text-align: center;
+  color:red;
+  width: 100%;
+  height: 100%;
+  border: 0;
+
+  -moz-border-radius:0px;
+	-webkit-border-radius:0px;
+	border-radius:2px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:17px;
+	text-decoration:none;
+}
+
+.stop-btn {
+	background-color:#53b56d;
+}
+
+.del-btn {
+  background-color:#E04346;
+	}
+
+.end-btn {
+  background-color:#2A6BD4;
+}
+
+.clear-btn {
+  background-color: #D8E8D5;
+  color: #000;
+  border-radius:6px;
   width: auto;
+  padding: 20px 20px;
+  margin-bottom: 20px;
+}
+
+.addTask-btn {
+  -moz-border-radius:0px;
+	-webkit-border-radius:0px;
+	border-radius:2px;
+	display:inline-block;
+	cursor:pointer;
+	color:#000;
+	font-size:17px;
+	text-decoration:none;
+}
+
+.btn:active {
+	position:relative;
+	top:1px;
+}
+
+.taskName {
+    font-size: 20px;
+    background: white;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #DDD inset;
+    color: #666;
+    outline: none;
+    height:25px;
+    width: 275px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 700px) {
+  .header{
+    text-align: center;
+  }
 }

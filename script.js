@@ -38,31 +38,31 @@ let generateRow = function(){
 	let delToDoRow_btn = document.createElement("button");
 	delToDoRow_btn.type = "button";
 	delToDoRow_btn.innerText= "Delete";
-	delToDoRow_btn.classList.add(".btn");
+	delToDoRow_btn.classList.add("del-btn","btn");
 	delToDoRow_btn.addEventListener("click", deleteToDoRow);
 
 	let delInProgressRow_btn = document.createElement("button");
 	delInProgressRow_btn.type = "button";
 	delInProgressRow_btn.innerText= "Delete";
-	delInProgressRow_btn.classList.add(".btn");
+	delInProgressRow_btn.classList.add("del-btn","btn");
 	delInProgressRow_btn.addEventListener("click", deleteInProgressRow);
 
 	let delDoneRow_btn = document.createElement("button");
 	delDoneRow_btn.type = "button";
 	delDoneRow_btn.innerText= "Delete";
-	delDoneRow_btn.classList.add(".btn");
+	delDoneRow_btn.classList.add("del-btn","btn");
 	delDoneRow_btn.addEventListener("click", deleteDoneRow);
 
 	let stop_btn = document.createElement("button");
 	stop_btn.type = "button";
 	stop_btn.innerText= "Start";
-	stop_btn.classList.add(".btn");
+	stop_btn.classList.add("stop-btn","btn");
 	stop_btn.addEventListener("click", stopTimer);
 
 	let end_btn = document.createElement("button");
 	end_btn.type = "button";
 	end_btn.innerText= "End task";
-	end_btn.classList.add(".btn");
+	end_btn.classList.add("end-btn","btn");
 	end_btn.addEventListener("click", endTask);
 
 	let tableRowToDo = document.createElement("tr");
@@ -198,11 +198,21 @@ let generateRow = function(){
 		if(clock.stopped == false){
 			clock.clockInterval = window.setInterval(addSecond, 1000);
 			stop_btn.innerText= "Stop";
+			stop_btn.style.backgroundColor = "#96838F";
 		} else{
 			clearInterval(clock.clockInterval);
 			stop_btn.innerText= "Start";
+			stop_btn.style.backgroundColor = "#53b56d";
 		}
 	}
 }
 
-addTask.addEventListener("click", generateRow);
+	addTask.addEventListener('click', generateRow);
+
+	taskName.addEventListener('keypress', function (e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) { // 13 is enter
+			e.preventDefault(e);
+      generateRow();
+    }
+});

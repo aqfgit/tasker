@@ -5,44 +5,55 @@
   <title>Tasker</title>
   <link href='main.css' rel='stylesheet' type='text/css'>
   <meta name="viewport" content="width=device-width">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet">
 </head>
 <body>
-	<header>
-		<h1>Tasker</h1>
+	<header class="header">
+		<h1>Welcome to Tasker</h1>
 	</header>
-  <h2>To do</h2>
-  <button name="sumbit" type="button" id="clearToDoTable">Clear table</button>
-  <form>
-    <input type="text" name="name" id="taskName" required>
-    <button name="sumbit" type="button" id="addTask">Add task</button>
-  </form>
-  <table class="tg" id="toDo">
-  <tr>
-    <th class="tg-yw4l">Name</th>
-    <th class="tg-yw4l">Start</th>
-    <th class="tg-yw4l">Delete</th>
-  </tr>
+  <main class="content">
+    <div class="schedule">
+      <h2>To do</h2>
+      <button type="button" id="clearToDoTable" class="btn clear-btn">Clear table</button>
+      <form>
+        <input type="text" name="name" id="taskName" class="taskName" required>
+        <button name="submit" type="button" id="addTask" class="addTask-btn">Add task</button>
+      </form>
+      <div class="table-wrap">
+        <table class="tg" id="toDo">
+        <tr>
+          <th>Name</th>
+          <th>Start</th>
+          <th>Delete</th>
+        </tr>
+        </table>
+      </div>
+    </div>
+    <div class="schedule">
+      <h2>In progress</h2>
+      <button type="button" id="clearInProgressTable" class="btn clear-btn">Clear table</button>
+      <table id="inProgress">
+        <tr>
+          <th>Name</th>
+          <th>Start/stop</th>
+          <th>End</th>
+          <th>Time</th>
+          <th>Delete</th>
+        </tr>
+      </table>
+  </div>
+  <div class="schedule">
+    <h2>Done tasks</h2>
+    <button type="button" id="clearDoneTable" class="btn clear-btn">Clear table</button>
+    <table class="tg" id="done">
+    <tr>
+      <th>Name</th>
+      <th>Time</th>
+      <th>Delete</th>
+    </tr>
   </table>
-  <h2>In progress</h2>
-  <button name="sumbit" type="button" id="clearInProgressTable">Clear table</button>
-	<table class="tg" id="inProgress">
-  <tr>
-    <th class="tg-yw4l">Name</th>
-    <th class="tg-yw4l">Start/stop</th>
-    <th class="tg-yw4l">End</th>
-    <th class="tg-yw4l">Time</th>
-    <th class="tg-yw4l">Delete</th>
-  </tr>
-</table>
-<h2>Done tasks</h2>
-<button name="sumbit" type="button" id="clearDoneTable">Clear table</button>
-<table class="tg" id="done">
-<tr>
-  <th class="tg-yw4l">Name</th>
-  <th class="tg-yw4l">Time</th>
-  <th class="tg-yw4l">Delete</th>
-</tr>
-</table>
+</div>
+</main>
 <script src="script.js"></script>
 </body>
 </html>
