@@ -1,3 +1,14 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
 .table-wrap {
   display: flex;
   justify-content: center;
@@ -25,16 +36,6 @@ td {
 	padding:5px;
   background: #fff;
 }
-html {
-  font-size: 62.5%;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-}
 
 .header {
   font-size: 4rem;
@@ -48,10 +49,6 @@ body {
   justify-content: center;
 
   min-width: 100vh;
-}
-
-.header h1 {
-  max-width: 100vh;
 }
 
 .content {

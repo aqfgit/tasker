@@ -12,26 +12,31 @@ let toDoRows = [];
 let inProgressRows = [];
 let doneRows = [];
 
-clearToDoTable.addEventListener("click", function(){
-	for(let i = 0; i < toDoRows.length; i++){
-		toDoRows[i].remove();
+function clearTable( evt ) {
+	switch (evt.currentTarget) {
+		case clearToDoTable:
+			for(let i = 0; i < toDoRows.length; i++){
+				toDoRows[i].remove();
+			}
+			toDoRows.length = 0;
+			break;
+		case clearInProgressTable:
+			for(let i = 0; i < inProgressRows.length; i++){
+				inProgressRows[i].remove();
+			}
+			inProgressRows.length = 0;
+			break;
+		case clearDoneTable:
+			for(let i = 0; i < doneRows.length; i++){
+				doneRows[i].remove();
+			}
+			doneRows.length = 0;
 	}
-	toDoRows.length = 0;
-});
+}
 
-clearInProgressTable.addEventListener("click", function(){
-	for(let i = 0; i < inProgressRows.length; i++){
-		inProgressRows[i].remove();
-	}
-	inProgressRows.length = 0;
-});
-
-clearDoneTable.addEventListener("click", function(){
-	for(let i = 0; i < doneRows.length; i++){
-		doneRows[i].remove();
-	}
-	doneRows.length = 0;
-});
+	clearToDoTable.addEventListener( 'click', clearTable );
+	clearInProgressTable.addEventListener( 'click', clearTable );
+	clearDoneTable.addEventListener( 'click', clearTable );
 
 let generateRow = function(){
 	//Creating buttons
@@ -207,6 +212,7 @@ let generateRow = function(){
 	}
 }
 
+	//User can add task by clicking "Add task" button,or pressing enter in input box
 	addTask.addEventListener('click', generateRow);
 
 	taskName.addEventListener('keypress', function (e) {
