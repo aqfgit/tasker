@@ -1,78 +1,47 @@
 let taskName = document.querySelector("#taskName");
 let addTask = document.querySelector("#addTask");
-let toDoTable = document.querySelector('#toDo');
-let inProgressTable = document.querySelector('#inProgress');
-let doneTable = document.querySelector('#done');
-let clearToDoTable = document.querySelector('#clearToDoTable');
-let clearInProgressTable = document.querySelector('#clearInProgressTable');
-let clearDoneTable = document.querySelector('#clearDoneTable');
-
+let toDoTable = document.querySelector('#toDoTable');
+let inProgressTable = document.querySelector('#inProgressTable');
+let doneTable = document.querySelector('#doneTable');
 //Eareasing entire table's content by clicking these 'Clear table' buttons
-let toDoRows = [];
-let inProgressRows = [];
-let doneRows = [];
 
-function clearTable( evt ) {
-	switch (evt.currentTarget) {
-		case clearToDoTable:
-			for(let i = 0; i < toDoRows.length; i++){
-				toDoRows[i].remove();
+let rows = {
+  toDo: [],
+  inProgress: [],
+  done: []
+}
+for (let item of document.querySelectorAll('.clear-btn')) {
+  item.addEventListener('click', clearTable);
+}
+function clearTable(e) {
+  let tableName = e.target.id;
+	for(let i = 0; i < rows[tableName].length; i++){
+				rows[tableName][i].remove();
 			}
-			toDoRows.length = 0;
-			break;
-		case clearInProgressTable:
-			for(let i = 0; i < inProgressRows.length; i++){
-				inProgressRows[i].remove();
-			}
-			inProgressRows.length = 0;
-			break;
-		case clearDoneTable:
-			for(let i = 0; i < doneRows.length; i++){
-				doneRows[i].remove();
-			}
-			doneRows.length = 0;
-	}
+  rows[tableName] = [];
 }
 
-	clearToDoTable.addEventListener( 'click', clearTable );
-	clearInProgressTable.addEventListener( 'click', clearTable );
-	clearDoneTable.addEventListener( 'click', clearTable );
+function generateButton(text, func, extraClass) {
+  let button = document.createElement('button');
+  button.type = 'button';
+  button.innerText = text;
+  button.classList.add('btn', extraClass);
+  button.addEventListener('click', func);
+  return button;
+}
 
 let generateRow = function(){
+
 	//Creating buttons
-	let delToDoRow_btn = document.createElement("button");
-	delToDoRow_btn.type = "button";
-	delToDoRow_btn.innerText= "Delete";
-	delToDoRow_btn.classList.add("del-btn","btn");
-	delToDoRow_btn.addEventListener("click", deleteToDoRow);
-
-	let delInProgressRow_btn = document.createElement("button");
-	delInProgressRow_btn.type = "button";
-	delInProgressRow_btn.innerText= "Delete";
-	delInProgressRow_btn.classList.add("del-btn","btn");
-	delInProgressRow_btn.addEventListener("click", deleteInProgressRow);
-
-	let delDoneRow_btn = document.createElement("button");
-	delDoneRow_btn.type = "button";
-	delDoneRow_btn.innerText= "Delete";
-	delDoneRow_btn.classList.add("del-btn","btn");
-	delDoneRow_btn.addEventListener("click", deleteDoneRow);
-
-	let stop_btn = document.createElement("button");
-	stop_btn.type = "button";
-	stop_btn.innerText= "Start";
-	stop_btn.classList.add("stop-btn","btn");
-	stop_btn.addEventListener("click", stopTimer);
-
-	let end_btn = document.createElement("button");
-	end_btn.type = "button";
-	end_btn.innerText= "End task";
-	end_btn.classList.add("end-btn","btn");
-	end_btn.addEventListener("click", endTask);
+	let delToDoRow_btn = generateButton('Delete', deleteToDoRow, "del-btn");
+  let delInProgressRow_btn = generateButton('Delete', deleteInProgressRow, "del-btn");
+  let delDoneRow_btn = generateButton('Delete', deleteDoneRow, "del-btn");
+  let stop_btn = generateButton('Start', stopTimer, "stop-btn");
+  let end_btn = generateButton('End task', endTask, "end-btn");
 
 	let tableRowToDo = document.createElement("tr");
 	toDoTable.appendChild(tableRowToDo);
-	toDoRows.push(tableRowToDo);
+	rows.toDo.push(tableRowToDo);
 	let toDoTableDatas = [];
 
 	//Defining "To do" table
@@ -91,7 +60,7 @@ let generateRow = function(){
 	function addInProgressRow() {
 		deleteToDoRow();
 		tableRowInProgress = document.createElement("tr");
-		inProgressRows.push(tableRowInProgress);
+		rows.inProgress.push(tableRowInProgress);
 		inProgressTable.appendChild(tableRowInProgress);
 		inProgressTableDatas = [];
 
@@ -111,7 +80,7 @@ let generateRow = function(){
 	function endTask() {
 		deleteInProgressRow();
 		tableRowDone = document.createElement("tr");
-		doneRows.push(tableRowDone);
+		rows.done.push(tableRowDone);
 		doneTable.appendChild(tableRowDone);
 		doneTableDatas = [];
 
@@ -210,6 +179,10 @@ let generateRow = function(){
 			stop_btn.style.backgroundColor = "#53b56d";
 		}
 	}
+
+	(function clearTable(){
+ 		taskName.value = "";
+		})()
 }
 
 	//User can add task by clicking "Add task" button,or pressing enter in input box
