@@ -5,6 +5,10 @@ let inProgressTable = document.querySelector('#inProgressTable');
 let doneTable = document.querySelector('#doneTable');
 //Eareasing entire table's content by clicking these 'Clear table' buttons
 
+let isTaskActive = false;
+
+let taskNames = [];
+
 let rows = {
   toDo: [],
   inProgress: [],
@@ -14,11 +18,16 @@ for (let item of document.querySelectorAll('.clear-btn')) {
   item.addEventListener('click', clearTable);
 }
 function clearTable(e) {
+  let r = confirm("The whole table will be cleared.Are you sure?");
+  if(r == false) {
+    return;
+  }
   let tableName = e.target.id;
 	for(let i = 0; i < rows[tableName].length; i++){
 				rows[tableName][i].remove();
 			}
   rows[tableName] = [];
+  taskNames = [];
 }
 
 function generateButton(text, func, extraClass) {
@@ -30,7 +39,39 @@ function generateButton(text, func, extraClass) {
   return button;
 }
 
+function checkForDuplicates() {
+  for(let i = 0; i < taskNames.length; i++){
+    if(taskNames[i] == taskName.value) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkIfInputIsEmpty() {
+  if (taskName.value == "") {
+    return true;
+  }
+  return false;
+}
+
+function clearInput(){
+ 		taskName.value = "";
+		}
+
 let generateRow = function(){
+  var isEmpty = checkIfInputIsEmpty();
+  if(isEmpty == true) {
+    alert("Please process a name for your task");
+    return;
+  }
+
+  var isDuplicate = checkForDuplicates();
+  if(isDuplicate == true) {
+    clearInput();
+    alert("Task with given name already exists")
+    return;
+  }
 
 	//Creating buttons
 	let delToDoRow_btn = generateButton('Delete', deleteToDoRow, "del-btn");
@@ -51,6 +92,7 @@ let generateRow = function(){
 	}
 
 	toDoTableDatas[0].innerText = taskName.value;
+  taskNames.push(taskName.value);
 	toDoTableDatas[1].appendChild(stop_btn);
 	toDoTableDatas[2].appendChild(delToDoRow_btn);
 
@@ -148,6 +190,7 @@ let generateRow = function(){
 		}
 		clock.inProgress  = true;
 		toDoTable.removeChild(tableRowToDo);
+    taskNames = [];
 	}
 
 	function deleteInProgressRow(){
@@ -155,6 +198,7 @@ let generateRow = function(){
 			return;
 		}
 		inProgressTable.removeChild(tableRowInProgress);
+    taskNames = [];
 	}
 
 	function deleteDoneRow(){
@@ -162,27 +206,36 @@ let generateRow = function(){
 			return;
 		}
 		doneTable.removeChild(tableRowDone);
+    taskNames = [];
 	}
 	//Starting/stopping clock after the button was clicked.This functions also moves a row from "Todo" table to "In progress" table
 	function stopTimer(){
 		if(clock.inProgress == false){
 			addInProgressRow();
 		}
+    if(isTaskActive == true) {
+      let r = confirm("The current active task will be stopped.Are you sure?");
+      if(r == true) {
+
+      }else {
+        return;
+      }
+    }
+
 		clock.stopped = !clock.stopped;
 		if(clock.stopped == false){
 			clock.clockInterval = window.setInterval(addSecond, 1000);
 			stop_btn.innerText= "Stop";
 			stop_btn.style.backgroundColor = "#96838F";
+      isTaskActive = true;
 		} else{
 			clearInterval(clock.clockInterval);
 			stop_btn.innerText= "Start";
 			stop_btn.style.backgroundColor = "#53b56d";
+      isTaskActive = false;
 		}
 	}
-
-	(function clearTable(){
- 		taskName.value = "";
-		})()
+  clearInput();
 }
 
 	//User can add task by clicking "Add task" button,or pressing enter in input box
