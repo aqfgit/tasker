@@ -1,14 +1,9 @@
-let taskName = document.querySelector("#taskName");
-let addTask = document.querySelector("#addTask");
-let toDoTable = document.querySelector('#toDoTable');
-let inProgressTable = document.querySelector('#inProgressTable');
-let doneTable = document.querySelector('#doneTable');
+let taskName = document.getElementById("taskName");
+let addTask = document.getElementById("addTask");
+let toDoTable = document.getElementById('toDoTable');
+let inProgressTable = document.getElementById('inProgressTable');
+let doneTable = document.getElementById('doneTable');
 //Eareasing entire table's content by clicking these 'Clear table' buttons
-
-let isTaskActive = false;
-
-let taskNames = [];
-
 let rows = {
   toDo: [],
   inProgress: [],
@@ -39,15 +34,6 @@ function generateButton(text, func, extraClass) {
   return button;
 }
 
-function checkForDuplicates() {
-  for(let i = 0; i < taskNames.length; i++){
-    if(taskNames[i] == taskName.value) {
-      return true;
-    }
-  }
-  return false;
-}
-
 function checkIfInputIsEmpty() {
   if (taskName.value == "") {
     return true;
@@ -65,14 +51,6 @@ let generateRow = function(){
     alert("Please process a name for your task");
     return;
   }
-
-  var isDuplicate = checkForDuplicates();
-  if(isDuplicate == true) {
-    clearInput();
-    alert("Task with given name already exists")
-    return;
-  }
-
 	//Creating buttons
 	let delToDoRow_btn = generateButton('Delete', deleteToDoRow, "del-btn");
   let delInProgressRow_btn = generateButton('Delete', deleteInProgressRow, "del-btn");
@@ -92,7 +70,6 @@ let generateRow = function(){
 	}
 
 	toDoTableDatas[0].innerText = taskName.value;
-  taskNames.push(taskName.value);
 	toDoTableDatas[1].appendChild(stop_btn);
 	toDoTableDatas[2].appendChild(delToDoRow_btn);
 
@@ -190,7 +167,6 @@ let generateRow = function(){
 		}
 		clock.inProgress  = true;
 		toDoTable.removeChild(tableRowToDo);
-    taskNames = [];
 	}
 
 	function deleteInProgressRow(){
@@ -198,7 +174,6 @@ let generateRow = function(){
 			return;
 		}
 		inProgressTable.removeChild(tableRowInProgress);
-    taskNames = [];
 	}
 
 	function deleteDoneRow(){
@@ -206,21 +181,12 @@ let generateRow = function(){
 			return;
 		}
 		doneTable.removeChild(tableRowDone);
-    taskNames = [];
 	}
 	//Starting/stopping clock after the button was clicked.This functions also moves a row from "Todo" table to "In progress" table
 	function stopTimer(){
 		if(clock.inProgress == false){
 			addInProgressRow();
 		}
-    if(isTaskActive == true) {
-      let r = confirm("The current active task will be stopped.Are you sure?");
-      if(r == true) {
-
-      }else {
-        return;
-      }
-    }
 
 		clock.stopped = !clock.stopped;
 		if(clock.stopped == false){
